@@ -1,3 +1,5 @@
+require 'kor/output/csv'
+
 module Kor
   module Output
     class Tsv < Csv
