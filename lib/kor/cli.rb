@@ -5,9 +5,6 @@ require "kor/output/base"
 
 module Kor
   class Cli
-    class OptionError < StandardError
-    end
-
     def initialize(argv = ARGV, input_io = $stdin, output_io = $stdout)
       @argv = argv
       @input_io = input_io
