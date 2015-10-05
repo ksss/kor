@@ -5,18 +5,20 @@ module KorOutputTsvTest
   def test_head(t)
     io = StringIO.new
     tsv = Kor::Output::Tsv.new(io)
-    tsv.head(%w(foo bar baz))
-    if io.string != "foo\tbar\tbaz\n"
-      t.error("expect output 'foo\\tbar\\tbaz\\n' got #{io.string.inspect}")
+    tsv.head(["foo", "bar", "baz\tqux"])
+    expect = %Q{"foo"\t"bar"\t"baz\tqux"\n}
+    if io.string != expect
+      t.error("expect output #{expect.inspect} got #{io.string.inspect}")
     end
   end
 
   def test_puts(t)
     io = StringIO.new
     tsv = Kor::Output::Tsv.new(io)
-    tsv.puts(%w(aaa bbb ccc))
-    if io.string != "aaa\tbbb\tccc\n"
-      t.error("expect output 'aaa\\tbbb\\tccc\\n' got #{io.string.inspect}")
+    tsv.puts(["aaa", "bbb\tccc", "ddd"])
+    expect = %Q{"aaa"\t"bbb\tccc"\t"ddd"\n}
+    if io.string != expect
+      t.error("expect output #{expect.inspect} got #{io.string.inspect}")
     end
   end
 end

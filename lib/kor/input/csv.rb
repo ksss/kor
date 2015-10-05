@@ -1,15 +1,24 @@
+require 'csv'
+
 module Kor
   module Input
     class Csv < Base
+      class ReadError < StandardError
+      end
+
       DELIM = ","
 
       def head
-        io.gets.chomp.split(self.class::DELIM).map(&:strip)
+        if line = io.gets
+          ::CSV.new(line.strip, col_sep: self.class::DELIM).gets
+        else
+          raise ReadError, "cannot get csv header"
+        end
       end
 
       def gets
         if line = io.gets
-          line.chomp.split(self.class::DELIM).map(&:strip)
+          ::CSV.new(line.strip, col_sep: self.class::DELIM).gets
         else
           nil
         end

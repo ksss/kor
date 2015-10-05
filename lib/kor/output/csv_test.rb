@@ -5,18 +5,20 @@ module KorOutputCsvTest
   def test_head(t)
     io = StringIO.new
     csv = Kor::Output::Csv.new(io)
-    csv.head(%w(foo bar baz))
-    if io.string != "foo,bar,baz\n"
-      t.error("expect output 'foo,bar,baz\\n' got #{io.string.inspect}")
+    csv.head(%w(foo bar baz,qux))
+    expect = %Q{"foo","bar","baz,qux"\n}
+    if io.string != expect
+      t.error("expect output #{expect} got #{io.string.inspect}")
     end
   end
 
   def test_puts(t)
     io = StringIO.new
     csv = Kor::Output::Csv.new(io)
-    csv.puts(%w(aaa bbb ccc))
-    if io.string != "aaa,bbb,ccc\n"
-      t.error("expect output 'aaa,bbb,ccc\\n' got #{io.string.inspect}")
+    csv.puts(%w(aaa bbb,ccc ddd))
+    expect = %Q{"aaa","bbb,ccc","ddd"\n}
+    if io.string != expect
+      t.error("expect output #{expect} got #{io.string.inspect}")
     end
   end
 end
