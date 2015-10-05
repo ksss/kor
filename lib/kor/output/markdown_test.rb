@@ -1,7 +1,7 @@
 require 'kor'
 require 'kor/output/markdown'
 
-module KorOutputCsvTest
+module KorOutputMarkdownTest
   def test_head(t)
     io = StringIO.new
     csv = Kor::Output::Markdown.new(io)
