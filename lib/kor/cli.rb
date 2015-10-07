@@ -36,7 +36,7 @@ module Kor
       end
       cli_opt.parse(@cli_args)
 
-      require "kor/input/#{@input_plugin}"
+      require_plugin "kor/input/#{@input_plugin}"
       in_class = Kor::Input.const_get(@input_plugin.capitalize)
       in_obj = in_class.new(@input_io)
       in_opt = OptionParser.new
@@ -52,7 +52,7 @@ USAGE
         exit 0
       end
 
-      require "kor/output/#{@output_plugin}"
+      require_plugin "kor/output/#{@output_plugin}"
       out_class = Kor::Output.const_get(@output_plugin.capitalize)
       out_obj = out_class.new(@output_io)
       out_opt = OptionParser.new
@@ -64,6 +64,15 @@ USAGE
         out_obj.puts(body)
       end
       out_obj.finish
+    end
+
+    private
+
+    def require_plugin(name)
+      require name
+    rescue LoadError
+      warn "LoadError: `#{name}' plugin not found"
+      exit 1
     end
   end
 end
