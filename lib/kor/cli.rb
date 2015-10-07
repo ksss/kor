@@ -29,6 +29,20 @@ module Kor
     end
 
     def run
+      cli_opt = OptionParser.new
+      cli_opt.on("--sync", "I/O sync mode") do |arg|
+        @input_io.sync = true
+        @output_io.sync = true
+      end
+      cli_opt.parse(@cli_args)
+
+      require "kor/input/#{@input_plugin}"
+      in_class = Kor::Input.const_get(@input_plugin.capitalize)
+      in_obj = in_class.new(@input_io)
+      in_opt = OptionParser.new
+      in_obj.parse(in_opt)
+      in_opt.parse(@input_args)
+
       unless @input_plugin && @output_plugin
         @output_io.puts <<-USAGE
 kor [option] [input-plugin] [input-option] [output-plugin] [output-option]
@@ -38,25 +52,11 @@ USAGE
         exit 0
       end
 
-      require "kor/input/#{@input_plugin}"
       require "kor/output/#{@output_plugin}"
-
-      in_class = Kor::Input.const_get(@input_plugin.capitalize)
       out_class = Kor::Output.const_get(@output_plugin.capitalize)
-      in_obj = in_class.new(@input_io)
       out_obj = out_class.new(@output_io)
-
-      cli_opt = OptionParser.new
-      cli_opt.on("--sync", "I/O sync mode") do |arg|
-        @input_io.sync = true
-        @output_io.sync = true
-      end
-      cli_opt.parse(@cli_args)
-      in_opt = OptionParser.new
       out_opt = OptionParser.new
-      in_obj.parse(in_opt)
       out_obj.parse(out_opt)
-      in_opt.parse(@input_args)
       out_opt.parse(@output_args)
 
       out_obj.head(in_obj.head)
