@@ -10,6 +10,11 @@ module Kor
       @input_io = input_io
       @output_io = output_io
 
+      @cli_args = []
+      while argv.first && argv.first[0] == "-"
+        @cli_args << argv.shift
+      end
+
       @input_plugin = argv.shift
       @input_args = []
       while argv.first && argv.first[0] == "-"
@@ -26,9 +31,9 @@ module Kor
     def run
       unless @input_plugin && @output_plugin
         @output_io.puts <<-USAGE
-kor [input-plugin] [input-option] [output-plugin] [output-option]
+kor [option] [input-plugin] [input-option] [output-plugin] [output-option]
 example:
-  $ kor csv markdown
+  $ kor --sync csv markdown --strip
 USAGE
         exit 0
       end
@@ -41,6 +46,12 @@ USAGE
       in_obj = in_class.new(@input_io)
       out_obj = out_class.new(@output_io)
 
+      cli_opt = OptionParser.new
+      cli_opt.on("--sync", "I/O sync mode") do |arg|
+        @input_io.sync = true
+        @output_io.sync = true
+      end
+      cli_opt.parse(@cli_args)
       in_opt = OptionParser.new
       out_opt = OptionParser.new
       in_obj.parse(in_opt)
