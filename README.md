@@ -42,9 +42,9 @@ Input from stdin and output to stdout.
 
 ```
 $ kor
-kor [input-plugin] [input-option] [output-plugin] [output-option]
+kor [option] [input-plugin] [input-option] [output-plugin] [output-option]
 example:
-  $ kor csv markdown
+  $ kor --sync csv markdown --strip
 ```
 
 ### input-plugin
