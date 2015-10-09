@@ -1,5 +1,4 @@
 require 'optparse'
-require 'thread'
 require "kor/input/base"
 require "kor/output/base"
 
