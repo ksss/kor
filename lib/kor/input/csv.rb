@@ -3,9 +3,6 @@ require 'csv'
 module Kor
   module Input
     class Csv < Base
-      class ReadError < StandardError
-      end
-
       DELIM = ","
 
       def head

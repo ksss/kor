@@ -22,7 +22,7 @@ CSV
     io2 = StringIO.new("")
     csv = Kor::Input::Csv.new(io2)
     head, err = go { csv.head }
-    unless Kor::Input::Csv::ReadError === err
+    unless Kor::ReadError === err
       t.error("expect Kor::Input::Csv::ReadError got #{err.class}:#{err}")
     end
   end

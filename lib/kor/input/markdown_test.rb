@@ -19,6 +19,12 @@ MARKDOWN
   end
 
   def test_head(t)
+    md = Kor::Input::Markdown.new(StringIO.new)
+    _, err = go { md.head }
+    unless Kor::ReadError === err
+      t.error("expect raise an error Kor::ReadError got #{err.class}:#{err}")
+    end
+
     @io.rewind
     md = Kor::Input::Markdown.new(@io)
     head = md.head
