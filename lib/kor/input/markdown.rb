@@ -9,7 +9,7 @@ module Kor
 
       def head
         line = io.gets
-        raise ReadError unless line
+        raise ReadError, "cannot get markdown header" unless line
         line.strip!
         first_index = line[0] == '|' ? 1 : 0
         keys = line.split('|')[first_index..-1].map(&:strip)
