@@ -14,14 +14,12 @@ module Kor
         # skip separate line
         io.gets
         if @filter_key
-          @filter_key = @filter_key.split(",").map do |key|
-            if index = keys.index(key)
-              index
-            else
-              raise NotKeyError, "`#{key}' is a not key of this table"
-            end
-          end
-          keys = @filter_key.map{ |index| keys[index] }
+          filter_keys = @filter_key.split(",")
+          filter_keys = keys.select { |key|
+            filter_keys.include?(key)
+          }
+          keys = filter_keys
+          @filter_key = filter_keys.map { |key| keys.index(key) }
         end
         keys
       end

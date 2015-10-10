@@ -16,17 +16,12 @@ module KorOutputMarkdownTest
     md = Kor::Output::Markdown.new(io)
     opt = OptionParser.new
     md.parse(opt)
-    opt.parse ["--key=foo,nothing"]
-    _, err = go { md.head(["foo", "bar", "baz"]) }
-    unless Kor::NotKeyError === err
-      t.error("expect raise Kor::Output::Markdown::NotKeyError got #{err.class}:#{err}")
-    end
 
-    opt.parse ["--key=bar,foo"]
+    opt.parse ["--key=bar,foo,non"]
     _, err = go { md.head(["foo", "bar", "baz"]) }
     t.error("expect not raise got #{err.class}:#{err}") if err
     if io.string != "| bar | foo |\n| --- | --- |\n"
-      t.error("expect bar,foo header got #{head}")
+      t.error("expect bar,foo header got #{io.string}")
     end
   end
 

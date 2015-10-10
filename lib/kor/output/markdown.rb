@@ -14,8 +14,9 @@ module Kor
       def head(keys)
         if @select_key
           select_keys = @select_key.split(",")
+          select_keys.select!{ |key| keys.include?(key) }
           @select_key = select_keys.map do |key|
-            keys.index(key) or raise NotKeyError, "`#{key}' is not a key of this table"
+            keys.index(key)
           end
           keys = select_keys
         end

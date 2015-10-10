@@ -40,23 +40,17 @@ MARKDOWN
     opt = OptionParser.new
     md.parse(opt)
 
-    opt.parse ["--key=bar,nothing"]
-    _, err = go { md.head }
-    unless Kor::NotKeyError === err
-      t.error("expect raise an error Kor::NotKeyError got #{err.class}:#{err}")
-    end
-
     @io.rewind
-    opt.parse ["--key=bar,foo"]
+    opt.parse ["--key=bar,foo,non"]
     actual = md.head
-    expect = %w(bar foo)
+    expect = %w(foo bar)
     if actual != expect
       t.error("expect #{expect} got #{actual}")
     end
 
     expects = [
-      %w(2 1),
-      %w(b a),
+      %w(1 2),
+      %w(a b),
       nil, nil, nil, nil, nil
     ].each do |expect|
       actual = md.gets
