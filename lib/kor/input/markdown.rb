@@ -13,8 +13,10 @@ module Kor
         line.strip!
         first_index = line[0] == '|' ? 1 : 0
         keys = line.split('|')[first_index..-1].map(&:strip)
-        # skip separate line
-        io.gets
+
+        separate_line = io.gets
+        raise ReadError, "cannot get markdown header" unless separate_line
+
         if @filter_key
           filter_keys = @filter_key.split(",")
           filter_keys = keys.select { |key|

@@ -25,6 +25,12 @@ MARKDOWN
       t.error("expect raise an error Kor::ReadError got #{err.class}:#{err}")
     end
 
+    md = Kor::Input::Markdown.new(StringIO.new("|foo|\n"))
+    _, err = go { md.head }
+    unless Kor::ReadError === err
+      t.error("expect raise an error Kor::ReadError got #{err.class}:#{err}")
+    end
+
     @io.rewind
     md = Kor::Input::Markdown.new(@io)
     head = md.head
