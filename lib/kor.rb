@@ -2,7 +2,7 @@ module Kor
   class NotKeyError < StandardError
     def initialize(*)
       super
-      warn "[DEPRECATED] Kot::NotKeyError was deprecated"
+      warn "[DEPRECATED] #{self.class} was deprecated"
     end
   end
 
