@@ -30,6 +30,18 @@ $ kor csv markdown < table.csv
 | markdown | ok | ok | ok |
 | csv | ok | ok | ok |
 | tsv | ok | ok | ok |
+
+$ kor csv tsv < table.csv
+from \ to	markdown	csv	tsv
+markdown	ok	ok	ok
+csv	ok	ok	ok
+tsv	ok	ok	ok
+
+$ kor csv csv < table.csv
+from \ to,markdown,csv,tsv
+markdown,ok,ok,ok
+csv,ok,ok,ok
+tsv,ok,ok,ok
 ```
 
 # Cli
