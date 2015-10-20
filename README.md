@@ -89,6 +89,15 @@ end
 out_obj.finish
 ```
 
+## Extend plugins
+
+- https://github.com/ksss/kor-input-json
+- https://github.com/ksss/kor-output-json
+- https://github.com/ksss/kor-input-ltsv
+- https://github.com/ksss/kor-output-ltsv
+- https://github.com/ksss/kor-input-yaml
+- https://github.com/ksss/kor-output-yaml
+
 ## Input
 
 Input plugin read data by I/O and make data of keys and values.
