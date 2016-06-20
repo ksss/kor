@@ -3,7 +3,7 @@ Kor
 
 [![Build Status](https://travis-ci.org/ksss/kor.svg)](https://travis-ci.org/ksss/kor)
 
-**Kor** is a pluggable table data converter.
+**Kor(Knights Of Round)** is a pluggable table data converter.
 
 ```
 +----------+    +-----+    +----------+
